@@ -7,6 +7,7 @@ import config from '@/payload.config'
 import './global.css'
 import { Hero } from '@/components/section/hero-carousel'
 import { Testimonial } from '@/components/section/testimonial'
+import { Page } from '@/payload-types'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -14,13 +15,21 @@ export default async function HomePage() {
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
-  const {
-    docs: [page],
-  } = await payload.find({ collection: 'pages' })
+  //prettier-ignore
+  const { docs: [page]} = await payload.find({ collection: 'pages' })
+  console.log('page', page)
 
+  // const renderBlock = (page: Page) => {
+  //   switch (page) {
+  //     case 'value':
+  //       break
+
+  //     default:
+  //       break
+  //   }
+  // }
   return (
-    <div className="w-full h-[calc(100vh-5rem)] bg-blue-300">
+    <div className="w-full">
       <Hero />
       <Testimonial />
     </div>

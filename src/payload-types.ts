@@ -162,29 +162,44 @@ export interface Page {
   id: string;
   title: string;
   slug: string;
-  layout: {
-    heroText: string;
-    heroSubText: string;
-    carouselImage: {
-      image?: (string | null) | Media;
-      id?: string | null;
-    }[];
-    ctaButton: {
-      label: string;
-      url: string;
-    };
-    news?:
-      | {
-          heading: string;
-          description: string;
-          image: string | Media;
+  layout: (
+    | {
+        heroText: string;
+        heroSubText: string;
+        carouselImage: {
+          image?: (string | null) | Media;
           id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'hero-carousel';
-  }[];
+        }[];
+        ctaButton: {
+          label: string;
+          url: string;
+        };
+        news?:
+          | {
+              heading: string;
+              description: string;
+              image: string | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'hero-carousel';
+      }
+    | {
+        sectionHeading: string;
+        testimonial: {
+          image: string | Media;
+          clientName: string;
+          clientRole: string;
+          message: string;
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'testimonial';
+      }
+  )[];
   updatedAt: string;
   createdAt: string;
 }
@@ -351,6 +366,22 @@ export interface PagesSelect<T extends boolean = true> {
                     heading?: T;
                     description?: T;
                     image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        testimonial?:
+          | T
+          | {
+              sectionHeading?: T;
+              testimonial?:
+                | T
+                | {
+                    image?: T;
+                    clientName?: T;
+                    clientRole?: T;
+                    message?: T;
                     id?: T;
                   };
               id?: T;
